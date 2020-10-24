@@ -1,2 +1,3 @@
 ---
 # vars file for launch_vpc
+vpc_template: "{{ {{lookup('file', 'files/cfn_base_vpc.yml')}}"
