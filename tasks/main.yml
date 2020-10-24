@@ -7,6 +7,6 @@
     state: "present"
     region: "us-east-1"
     disable_rollback: true
-    template: "roles/cloudformation/files/cfn_base_vpc.yml"
+    template: "requirements_roles/launch_vpc/files/files/cfn_base_vpc.yml"
     tags:
       Stack: "{{ ec2_name_prefix }}"
