@@ -1,2 +1,3 @@
 ---
 # defaults file for launch_vpc
+ec2_name_prefix: Test

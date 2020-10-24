@@ -1,2 +1,12 @@
 ---
 # tasks file for launch_vpc
+
+- name: create a cloudformation stack
+  amazon.aws.cloudformation:
+    stack_name: "{{ ec2_name_prefix }}"
+    state: "present"
+    region: "us-east-1"
+    disable_rollback: true
+    template: "files/cfn_base_vpc.yml"
+    tags:
+      Stack: "{{ ec2_name_prefix }}"
