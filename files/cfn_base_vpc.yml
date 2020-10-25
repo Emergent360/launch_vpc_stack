@@ -20,7 +20,7 @@ Resources:
       EnableDnsHostnames: true
       Tags:
       - Key: Name
-        Value:  !Join ['', [!Ref "AWS::StackName", "-VPC" ]]
+        Value:  !Join ['', [!Ref "AWS::StackName", "-vpc" ]]
 
   # Our VPC will need internet access:      
   InternetGateway:
