@@ -37,6 +37,14 @@ Parameters:
     Default: 2
     Description:  How many Availability Zones do you wish to utilize?
 
+  BuildNAT:
+    Type: String
+    AllowedValues: 
+    - "True"
+    - "False"
+    Default: "False"
+    Description: Do you want to build a NAT function? This is an additional param to allow the use of private subnets without a NAT being added (e.g., when building a demo of a firewall).
+
   NATType:
     Type: String
     AllowedValues:
@@ -52,8 +60,8 @@ Conditions:
   BuildPrivateA:        !Equals [ !Ref PrivateSubnets, True ]       # Can't determine how to build a condition from a separate single condition
   BuildPrivateB:        !And [ Condition: BuildPrivateSubnets, Condition: BuildPublicB ]
   BuildPrivateC:        !And [ Condition: BuildPrivateSubnets, Condition: BuildPublicC ]
-  BuildNATGateway:      !And [ Condition: BuildPrivateSubnets, !Equals [ !Ref NATType, "NAT Gateway" ] ]
-  BuildNATInstance:     !And [ Condition: BuildPrivateSubnets, !Equals [ !Ref NATType, "EC2 NAT Instance" ] ]
+  BuildNATGateway:      !And [ !Equals [ !Ref BuildNAT, True ], Condition: BuildPrivateSubnets, !Equals [ !Ref NATType, "NAT Gateway" ] ]
+  BuildNATInstance:     !And [ !Equals [ !Ref BuildNAT, True ], Condition: BuildPrivateSubnets, !Equals [ !Ref NATType, "EC2 NAT Instance" ] ]
 
 
 Mappings:

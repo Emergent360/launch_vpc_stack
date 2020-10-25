@@ -2,5 +2,11 @@
 # defaults file for launch_vpc
 ec2_name_prefix: Test
 vpc_template: "{{ lookup('file', 'files/cfn_vpc.yml') }}"
+# 1, 2, or 3
 num_of_azs: 1
+# "True", or "False"
 private_subnets: "False"
+# "True", or "False"
+build_nat_gateway: "False"
+# AllowedValues: "EC2 NAT Instance" or "NAT Gateway"
+nat_type: "NAT Gateway"
