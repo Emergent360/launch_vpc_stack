@@ -60,6 +60,7 @@ Conditions:
   BuildPrivateA:        !Equals [ !Ref PrivateSubnets, "True" ]       # Can't determine how to build a condition from a separate single condition
   BuildPrivateB:        !And [ Condition: BuildPrivateSubnets, Condition: BuildPublicB ]
   BuildPrivateC:        !And [ Condition: BuildPrivateSubnets, Condition: BuildPublicC ]
+  BuildNATRoute:        !And [ !Equals [ !Ref BuildNAT, True ], Condition: BuildPrivateSubnets ]
   BuildNATGateway:      !And [ !Equals [ !Ref BuildNAT, True ], Condition: BuildPrivateSubnets, !Equals [ !Ref NATType, "NAT Gateway" ] ]
   BuildNATInstance:     !And [ !Equals [ !Ref BuildNAT, True ], Condition: BuildPrivateSubnets, !Equals [ !Ref NATType, "EC2 NAT Instance" ] ]
 
@@ -203,7 +204,7 @@ Resources:
   PrivateRoute1:            # Private route table can access web via NAT (created below)
     Type: AWS::EC2::Route
 #    Condition: BuildPrivateSubnets
-    Condition: BuildNAT
+    Condition: BuildNATRoute
     Properties:
       RouteTableId: !Ref PrivateRouteTable
       DestinationCidrBlock: 0.0.0.0/0
