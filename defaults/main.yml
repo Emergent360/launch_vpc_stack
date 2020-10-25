@@ -3,4 +3,4 @@
 ec2_name_prefix: Test
 vpc_template: "{{ lookup('file', 'files/cfn_vpc.yml') }}"
 num_of_azs: 1
-private_subnets: False
+private_subnets: "False"
