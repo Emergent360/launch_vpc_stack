@@ -11,5 +11,7 @@
     template_parameters:
       NumberOfAZs: "{{ num_of_azs }}"
       PrivateSubnets: "{{ private_subnets }}"
+      BuildNAT: "{{ build_nat_gateway }}"
+      NATType: "{{ nat_type }}"
     tags:
       Stack: "{{ ec2_name_prefix }}"
