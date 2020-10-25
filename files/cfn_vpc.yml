@@ -56,8 +56,8 @@ Parameters:
 Conditions:
   BuildPublicB:         !Not [ !Equals [ !Ref NumberOfAZs, 1 ]]  
   BuildPublicC:         !Equals [ !Ref NumberOfAZs, 3 ]  
-  BuildPrivateSubnets:  !Equals [ !Ref PrivateSubnets, True ] 
-  BuildPrivateA:        !Equals [ !Ref PrivateSubnets, True ]       # Can't determine how to build a condition from a separate single condition
+  BuildPrivateSubnets:  !Equals [ !Ref PrivateSubnets, "True" ] 
+  BuildPrivateA:        !Equals [ !Ref PrivateSubnets, "True" ]       # Can't determine how to build a condition from a separate single condition
   BuildPrivateB:        !And [ Condition: BuildPrivateSubnets, Condition: BuildPublicB ]
   BuildPrivateC:        !And [ Condition: BuildPrivateSubnets, Condition: BuildPublicC ]
   BuildNATGateway:      !And [ !Equals [ !Ref BuildNAT, True ], Condition: BuildPrivateSubnets, !Equals [ !Ref NATType, "NAT Gateway" ] ]
