@@ -23,9 +23,9 @@ Parameters:
   PrivateSubnets:
     Type: String
     AllowedValues: 
-    - True
-    - False
-    Default: True
+    - "True"
+    - "False"
+    Default: "True"
     Description: Do you want to create private subnets in addition to public subnets?
 
   NumberOfAZs:
