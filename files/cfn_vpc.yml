@@ -199,9 +199,11 @@ Resources:
       Tags:
       - Key: Name
         Value: Private
+#BuildNATGateway:      !And [ !Equals [ !Ref BuildNAT, True ], Condition: BuildPrivateSubnets, !Equals [ !Ref NATType, "NAT Gateway" ] ]
   PrivateRoute1:            # Private route table can access web via NAT (created below)
     Type: AWS::EC2::Route
-    Condition: BuildPrivateSubnets
+#    Condition: BuildPrivateSubnets
+    Condition: BuildNAT
     Properties:
       RouteTableId: !Ref PrivateRouteTable
       DestinationCidrBlock: 0.0.0.0/0
