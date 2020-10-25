@@ -10,6 +10,6 @@
     template_body: "{{ vpc_template }}"
     template_parameters:
       NumberOfAZs: "{{ num_of_azs }}"
-#      PrivateSubnets: True
+      PrivateSubnets: "{{ private_subnets }}" | string
     tags:
       Stack: "{{ ec2_name_prefix }}"
