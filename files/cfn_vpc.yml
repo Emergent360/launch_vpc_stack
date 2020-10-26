@@ -56,6 +56,12 @@ Parameters:
   DefaultVPC:
     Type: String
 
+  DefaultRTB:
+    Type: String
+
+  DefaultRoute:
+    Type: String
+
 Conditions:
   BuildPublicB:         !Not [ !Equals [ !Ref NumberOfAZs, 1 ]]  
   BuildPublicC:         !Equals [ !Ref NumberOfAZs, 3 ]  
@@ -341,6 +347,19 @@ Resources:
       PeerVpcId: !Ref VPC
       VpcId: !Ref DefaultVPC
 
+  RouteToDefaultVPC:
+    Type: AWS::EC2::Route
+    Properties:
+      DestinationCidrBlock: !Ref DefaultRoute
+      RouteTableId: !Ref PublicRouteTable
+      VpcPeeringConnectionId: !Ref VPCPeeringConnection
+
+  RouteToPublicSubnetA:
+    Type: AWS::EC2::Route
+    Properties:
+      DestinationCidrBlock: !GetAtt PublicSubnetA.CidrBlock
+      RouteTableId: !Ref DefaultRouteTable
+      VpcPeeringConnectionId: !Ref VPCPeeringConnection
 
 Outputs:
   VPC:

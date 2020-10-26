@@ -10,5 +10,7 @@ private_subnets: "False"
 build_nat_gateway: "True"
 # AllowedValues: "EC2 NAT Instance" or "NAT Gateway"
 nat_type: "NAT Gateway"
-#
+# Default VPC and it's route table
 default_vpc: "vpc-5951063e"
+default_rtb: "rtb-9e65ccf8"
+default_route: "172.31.0.0/16"

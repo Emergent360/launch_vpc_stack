@@ -14,5 +14,7 @@
       BuildNAT: "{{ build_nat_gateway }}"
       NATType: "{{ nat_type }}"
       DefaultVPC: "{{ default_vpc }}"
+      DefaultRTB: "{{ default_rtb }}"
+      DefaultRoute: "{{ default_route }}"
     tags:
       Stack: "{{ ec2_name_prefix }}"
