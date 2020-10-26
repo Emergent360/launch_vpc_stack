@@ -62,6 +62,30 @@ Parameters:
   DefaultRoute:
     Type: String
 
+  PublicACidrBlock:
+    Type: String
+    Default: "10.1.10.0/24"
+
+  PublicBCidrBlock:
+    Type: String
+    Default: "10.1.20.0/24"
+
+  PublicCCidrBlock:
+    Type: String
+    Default: "10.1.30.0/24"
+
+  PrivateACidrBlock:
+    Type: String
+    Default: "10.1.50.0/24"
+
+  PrivateBCidrBlock:
+    Type: String
+    Default: "10.1.60.0/24"
+
+  PrivateCCidrBlock:
+    Type: String
+    Default: "10.1.70.0/24"
+
 Conditions:
   BuildPublicB:         !Not [ !Equals [ !Ref NumberOfAZs, 1 ]]  
   BuildPublicC:         !Equals [ !Ref NumberOfAZs, 3 ]  
@@ -357,8 +381,7 @@ Resources:
   RouteToPublicSubnetA:
     Type: AWS::EC2::Route
     Properties:
-#      DestinationCidrBlock: !GetAtt PublicSubnetA.CidrBlock
-      DestinationCidrBlock: 10.1.10.0/24
+      DestinationCidrBlock: !Ref PublicACidrBlock
       RouteTableId: !Ref DefaultRTB
       VpcPeeringConnectionId: !Ref VPCPeeringConnection
 
