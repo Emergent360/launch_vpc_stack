@@ -13,5 +13,6 @@
       PrivateSubnets: "{{ private_subnets }}"
       BuildNAT: "{{ build_nat_gateway }}"
       NATType: "{{ nat_type }}"
+      DefaultVPC: "{{ default_vpc }}"
     tags:
       Stack: "{{ ec2_name_prefix }}"

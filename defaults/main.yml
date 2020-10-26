@@ -10,3 +10,5 @@ private_subnets: "False"
 build_nat_gateway: "True"
 # AllowedValues: "EC2 NAT Instance" or "NAT Gateway"
 nat_type: "NAT Gateway"
+#
+default_vpc: "vpc-5951063e"
