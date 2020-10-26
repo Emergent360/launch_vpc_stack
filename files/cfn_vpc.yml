@@ -359,7 +359,7 @@ Resources:
     Properties:
 #      DestinationCidrBlock: !GetAtt PublicSubnetA.CidrBlock
       DestinationCidrBlock: 10.1.10.0/24
-      RouteTableId: !Ref DefaultRouteTable
+      RouteTableId: !Ref DefaultRTB
       VpcPeeringConnectionId: !Ref VPCPeeringConnection
 
 Outputs:
