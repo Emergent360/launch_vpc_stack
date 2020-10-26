@@ -357,7 +357,8 @@ Resources:
   RouteToPublicSubnetA:
     Type: AWS::EC2::Route
     Properties:
-      DestinationCidrBlock: !GetAtt PublicSubnetA.CidrBlock
+#      DestinationCidrBlock: !GetAtt PublicSubnetA.CidrBlock
+      DestinationCidrBlock: 10.1.10.0/24
       RouteTableId: !Ref DefaultRouteTable
       VpcPeeringConnectionId: !Ref VPCPeeringConnection
 
