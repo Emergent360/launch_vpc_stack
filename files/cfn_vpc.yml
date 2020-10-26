@@ -53,6 +53,10 @@ Parameters:
     Default:  "NAT Gateway"
     Description:  What type of NAT to use for private instances to communicate with the internet.  A single EC2 instance can be used as a NAT, or you can use the AWS NAT Gateway (managed, scalable, more expensive).  This setting will be IGNORED if you do not build private subnets.
 
+  DefaultVPC:
+    Type: "AWS::EC2::VPC::Id"
+    Default: "vpc-5951063e"
+
 Conditions:
   BuildPublicB:         !Not [ !Equals [ !Ref NumberOfAZs, 1 ]]  
   BuildPublicC:         !Equals [ !Ref NumberOfAZs, 3 ]  
@@ -331,6 +335,12 @@ Resources:
     Condition: BuildNATGateway
     Properties:
       Domain: VPC
+
+  VPCPeeringConnection:
+    Type: "AWS::EC2::VPCPeeringConnection"
+    Properties:
+      PeerVpcId: !Ref VPC
+          VpcId: !Ref DefaultVPC
 
 
 Outputs:
