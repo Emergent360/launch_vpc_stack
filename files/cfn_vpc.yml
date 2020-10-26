@@ -336,10 +336,10 @@ Resources:
       Domain: VPC
 
   VPCPeeringConnection:
-    Type: "AWS::EC2::VPCPeeringConnection"
+    Type: AWS::EC2::VPCPeeringConnection
     Properties:
       PeerVpcId: !Ref VPC
-          VpcId: !Ref DefaultVPC
+      VpcId: !Ref DefaultVPC
 
 
 Outputs:
