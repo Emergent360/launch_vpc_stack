@@ -136,19 +136,6 @@ Resources:
       - Key: Name
         Value: !Sub ${AWS::StackName}-vpc
 
-  # testing a rule for the default SG
-  VPCDefaultSecurityGroup:
-    Type: AWS::EC2::SecurityGroup
-    Properties:
-      GroupDescription: default VPC security group
-      SecurityGroupIngress:
-        - IpProtocol: tcp
-          FromPort: 22
-          ToPort: 22
-          GroupId: !GetAtt VPC.DefaultSecurityGroup
-          CidrIp: "0.0.0.0/0"
-
-
   # Our VPC will need internet access:      
   InternetGateway:
     Type: AWS::EC2::InternetGateway
@@ -300,7 +287,19 @@ Resources:
     Properties:
       SubnetId: !Ref PrivateSubnetC
       RouteTableId: !Ref PrivateRouteTable
-      
+
+  # testing a rule for the default SG
+  VPCSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    DependsOn: VPC
+    Properties:
+      GroupName: !Sub ${AWS::StackName}-SG
+      GroupDescription: default VPC security group ingress
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: "0.0.0.0/0"
 
   # A security group for our NAT.  Ingress from the VPC IPs only.  Egress is TCP & UDP only:
   NATSecurityGroup:
