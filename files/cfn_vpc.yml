@@ -295,6 +295,7 @@ Resources:
     Properties:
       GroupName: !Sub ${AWS::StackName}-SG
       GroupDescription: default VPC security group ingress
+      VpcId: !Ref VPC
       SecurityGroupIngress:
         - IpProtocol: tcp
           FromPort: 22
