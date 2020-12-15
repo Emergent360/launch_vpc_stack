@@ -137,16 +137,16 @@ Resources:
         Value: !Sub ${AWS::StackName}-vpc
 
   # testing a rule for the default SG
-    VPCDefaultSecurityGroup:
-      Type: AWS::EC2::SecurityGroup
-      Properties:
-        GroupDescription: default VPC security group
-        SecurityGroupIngress:
-          - IpProtocol: tcp
-            FromPort: 22
-            ToPort: 22
-            GroupId: !GetAtt VPC.DefaultSecurityGroup
-            CidrIp: "0.0.0.0/0"
+  VPCDefaultSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: default VPC security group
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          GroupId: !GetAtt VPC.DefaultSecurityGroup
+          CidrIp: "0.0.0.0/0"
 
 
   # Our VPC will need internet access:      
