@@ -153,6 +153,7 @@ Resources:
     Properties:
       VpcId: !Ref VPC
       CidrBlock: 10.1.10.0/24
+      MapPublicIpOnLaunch: true
       AvailabilityZone: !Select [ 0, !GetAZs ]    # Get the first AZ in the list        
       Tags:
       - Key: Name
@@ -163,6 +164,7 @@ Resources:
     Properties:
       VpcId: !Ref VPC
       CidrBlock: 10.1.20.0/24
+      MapPublicIpOnLaunch: true
       AvailabilityZone: !Select [ 1, !GetAZs ]    # Get the second AZ in the list  
       Tags:
       - Key: Name
@@ -173,6 +175,7 @@ Resources:
     Properties:
       VpcId: !Ref VPC
       CidrBlock: 10.1.30.0/24
+      MapPublicIpOnLaunch: true
       AvailabilityZone: !Select [ 2, !GetAZs ]    # Get the third AZ in the list  
       Tags:
       - Key: Name
