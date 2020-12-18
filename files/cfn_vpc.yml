@@ -23,9 +23,9 @@ Parameters:
   PrivateSubnets:
     Type: String
     AllowedValues: 
-    - "True"
-    - "False"
-    Default: "True"
+    - True
+    - False
+    Default: True
     Description: Do you want to create private subnets in addition to public subnets?
 
   NumberOfAZs:
@@ -40,9 +40,9 @@ Parameters:
   BuildNAT:
     Type: String
     AllowedValues: 
-    - "True"
-    - "False"
-    Default: "True"
+    - True
+    - False
+    Default: True
     Description: Do you want to build a NAT function? This is an additional param to allow the use of private subnets without a NAT being added (e.g., when building a demo of a firewall).
 
   NATType:
@@ -89,13 +89,13 @@ Parameters:
 Conditions:
   BuildPublicB:         !Not [ !Equals [ !Ref NumberOfAZs, 1 ]]  
   BuildPublicC:         !Equals [ !Ref NumberOfAZs, 3 ]  
-  BuildPrivateSubnets:  !Equals [ !Ref PrivateSubnets, "True" ] 
-  BuildPrivateA:        !Equals [ !Ref PrivateSubnets, "True" ]       # Can't determine how to build a condition from a separate single condition
+  BuildPrivateSubnets:  !Equals [ !Ref PrivateSubnets, True ] 
+  BuildPrivateA:        !Equals [ !Ref PrivateSubnets, True ]       # Can't determine how to build a condition from a separate single condition
   BuildPrivateB:        !And [ Condition: BuildPrivateSubnets, Condition: BuildPublicB ]
   BuildPrivateC:        !And [ Condition: BuildPrivateSubnets, Condition: BuildPublicC ]
   BuildNATRoute:        !And [ !Equals [ !Ref BuildNAT, True ], Condition: BuildPrivateSubnets ]
-  BuildNATGateway:      !And [ !Equals [ !Ref BuildNAT, True ], Condition: BuildPrivateSubnets, !Equals [ !Ref NATType, "NAT Gateway" ] ]
-  BuildNATInstance:     !And [ !Equals [ !Ref BuildNAT, True ], Condition: BuildPrivateSubnets, !Equals [ !Ref NATType, "EC2 NAT Instance" ] ]
+  BuildNATGateway:      !And [ Condition: BuildPrivateSubnets, !Equals [ !Ref NATType, "NAT Gateway" ] ]
+  BuildNATInstance:     !And [ Condition: BuildPrivateSubnets, !Equals [ !Ref NATType, "EC2 NAT Instance" ] ]
 
 
 Mappings:
