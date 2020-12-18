@@ -11,7 +11,7 @@
     template_parameters:
       NumberOfAZs: "{{ num_of_azs }}"
       PrivateSubnets: "{{ private_subnets }}"
-#      BuildNAT: "{{ build_nat_gateway }}"
+      BuildNAT: "{{ build_nat_gateway }}"
       NATType: "{{ nat_type }}"
       DefaultVPC: "{{ default_vpc }}"
       DefaultRTB: "{{ default_rtb }}"
