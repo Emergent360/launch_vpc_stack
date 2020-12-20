@@ -404,6 +404,13 @@ Resources:
       RouteTableId: !Ref DefaultRTB
       VpcPeeringConnectionId: !Ref VPCPeeringConnection
 
+  RouteToPublicSubnetB:
+    Type: AWS::EC2::Route
+    Properties:
+      DestinationCidrBlock: !Ref PublicBCidrBlock
+      RouteTableId: !Ref DefaultRTB
+      VpcPeeringConnectionId: !Ref VPCPeeringConnection
+
 Outputs:
   VPC:
     Description: VPC of the base network
