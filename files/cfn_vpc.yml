@@ -406,8 +406,41 @@ Resources:
 
   RouteToPublicSubnetB:
     Type: AWS::EC2::Route
+    Condition: BuildPublicB
     Properties:
       DestinationCidrBlock: !Ref PublicBCidrBlock
+      RouteTableId: !Ref DefaultRTB
+      VpcPeeringConnectionId: !Ref VPCPeeringConnection
+
+  RouteToPublicSubnetC:
+    Type: AWS::EC2::Route
+    Condition: BuildPublicC
+    Properties:
+      DestinationCidrBlock: !Ref PublicCCidrBlock
+      RouteTableId: !Ref DefaultRTB
+      VpcPeeringConnectionId: !Ref VPCPeeringConnection
+
+  RouteToPrivateSubnetA:
+    Type: AWS::EC2::Route
+    Condition: BuildPrivateA
+    Properties:
+      DestinationCidrBlock: !Ref PrivateACidrBlock
+      RouteTableId: !Ref DefaultRTB
+      VpcPeeringConnectionId: !Ref VPCPeeringConnection
+
+  RouteToPrivateSubnetB:
+    Type: AWS::EC2::Route
+    Condition: BuildPrivateB
+    Properties:
+      DestinationCidrBlock: !Ref PrivateBCidrBlock
+      RouteTableId: !Ref DefaultRTB
+      VpcPeeringConnectionId: !Ref VPCPeeringConnection
+
+  RouteToPrivateSubnetC:
+    Type: AWS::EC2::Route
+    Condition: BuildPrivateC
+    Properties:
+      DestinationCidrBlock: !Ref PrivateCCidrBlock
       RouteTableId: !Ref DefaultRTB
       VpcPeeringConnectionId: !Ref VPCPeeringConnection
 
