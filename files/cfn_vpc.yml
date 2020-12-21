@@ -258,6 +258,7 @@ Resources:
     Condition: BuildPrivateSubnets
     Properties:
       RouteTableId: !Ref PrivateRouteTable
+      DestinationCidrBlock: 172.31.0.0/16
       VpcPeeringConnectionId: !Ref VPCPeeringConnection
     
   # Attach the public subnets to public route tables, 
