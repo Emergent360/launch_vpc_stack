@@ -311,22 +311,28 @@ Resources:
       GroupName: !Sub ${AWS::StackName}-Private-SG
       GroupDescription: Private VPC security group
       VpcId: !Ref VPC
- 
-  VPCPrivateSecurityGroupIngress:
-    Type: AWS::EC2::SecurityGroupIngress
-    DependsOn: VPCPrivateSecurityGroup
-    Properties:
-      GroupId: !Ref VPCPrivateSecurityGroup
-      IpProtocol: -1
-      SourceSecurityGroupId: !Ref VPCPrivateSecurityGroup
+      SecurityGroupIngress:
+        - IpProtocol: -1
+          SourceSecurityGroupId: !Ref VPCPrivateSecurityGroup
+        - IpProtocol: -1
+          SourceSecurityGroupId: !Ref DefaultVPCSecurityGroup
 
-  VPCPrivateSecurityGroupIngress:
-    Type: AWS::EC2::SecurityGroupIngress
-    DependsOn: VPCPrivateSecurityGroup
-    Properties:
-      GroupId: !Ref VPCPrivateSecurityGroup
-      IpProtocol: -1
-      SourceSecurityGroupId: !Ref DefaultVPCSecurityGroup
+ 
+#  VPCPrivateSecurityGroupIngress:
+#    Type: AWS::EC2::SecurityGroupIngress
+#    DependsOn: VPCPrivateSecurityGroup
+#    Properties:
+#      GroupId: !Ref VPCPrivateSecurityGroup
+#      IpProtocol: -1
+#      SourceSecurityGroupId: !Ref VPCPrivateSecurityGroup
+#
+#  VPCPrivateSecurityGroupIngress:
+#    Type: AWS::EC2::SecurityGroupIngress
+#    DependsOn: VPCPrivateSecurityGroup
+#    Properties:
+#      GroupId: !Ref VPCPrivateSecurityGroup
+#      IpProtocol: -1
+#      SourceSecurityGroupId: !Ref DefaultVPCSecurityGroup
 
 
   # A security group for our NAT.  Ingress from the VPC IPs only.  Egress is TCP & UDP only:
