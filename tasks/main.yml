@@ -16,5 +16,6 @@
       DefaultVPC: "{{ default_vpc }}"
       DefaultRTB: "{{ default_rtb }}"
       DefaultRoute: "{{ default_route }}"
+      DefaultVPCSecurityGroup: "{{ default_vpc_sg }}"
     tags:
       Stack: "{{ ec2_name_prefix }}"

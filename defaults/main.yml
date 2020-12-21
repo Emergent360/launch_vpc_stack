@@ -13,4 +13,5 @@ nat_type: "NAT Gateway"
 # Default VPC and it's route table
 default_vpc: "vpc-5951063e"
 default_rtb: "rtb-9e65ccf8"
+default_vpc_sg: "sg-0fbd8521bd349882e"
 default_route: "172.31.0.0/16"

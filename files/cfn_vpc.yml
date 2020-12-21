@@ -59,6 +59,10 @@ Parameters:
   DefaultRTB:
     Type: String
 
+  # This is the security group in the default VPC to allow in from VPC peering
+  DefaultVPCSecurityGroup:
+    Type: String
+
   DefaultRoute:
     Type: String
 
@@ -287,19 +291,43 @@ Resources:
       SubnetId: !Ref PrivateSubnetC
       RouteTableId: !Ref PrivateRouteTable
 
-  # testing a rule for the default SG
-  VPCSecurityGroup:
+  VPCPublicSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     DependsOn: VPC
     Properties:
-      GroupName: !Sub ${AWS::StackName}-SG
-      GroupDescription: default VPC security group ingress
+      GroupName: !Sub ${AWS::StackName}-Public-SG
+      GroupDescription: Public VPC security group
       VpcId: !Ref VPC
       SecurityGroupIngress:
         - IpProtocol: tcp
           FromPort: 22
           ToPort: 22
           CidrIp: "0.0.0.0/0"
+
+  VPCPrivateSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    DependsOn: VPC
+    Properties:
+      GroupName: !Sub ${AWS::StackName}-Private-SG
+      GroupDescription: Private VPC security group
+      VpcId: !Ref VPC
+ 
+  VPCPrivateSecurityGroupIngress:
+    Type: AWS::EC2::SecurityGroupIngress
+    DependsOn: VPCPrivateSecurityGroup
+    Properties:
+      GroupId: !Ref VPCPrivateSecurityGroup
+      IpProtocol: -1
+      SourceSecurityGroupId: !Ref VPCPrivateSecurityGroup
+
+  VPCPrivateSecurityGroupIngress:
+    Type: AWS::EC2::SecurityGroupIngress
+    DependsOn: VPCPrivateSecurityGroup
+    Properties:
+      GroupId: !Ref VPCPrivateSecurityGroup
+      IpProtocol: -1
+      SourceSecurityGroupId: !Ref DefaultVPCSecurityGroup
+
 
   # A security group for our NAT.  Ingress from the VPC IPs only.  Egress is TCP & UDP only:
   NATSecurityGroup:
