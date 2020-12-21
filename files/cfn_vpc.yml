@@ -312,20 +312,18 @@ Resources:
       GroupDescription: Private VPC security group
       VpcId: !Ref VPC
       SecurityGroupIngress:
-        - IpProtocol: -1
-          SourceSecurityGroupId: !Ref VPCPrivateSecurityGroup
-        - IpProtocol: -1
-          SourceSecurityGroupId: !Ref DefaultVPCSecurityGroup
+        IpProtocol: -1
+        SourceSecurityGroupId: !Ref DefaultVPCSecurityGroup
 
  
-#  VPCPrivateSecurityGroupIngress:
-#    Type: AWS::EC2::SecurityGroupIngress
-#    DependsOn: VPCPrivateSecurityGroup
-#    Properties:
-#      GroupId: !Ref VPCPrivateSecurityGroup
-#      IpProtocol: -1
-#      SourceSecurityGroupId: !Ref VPCPrivateSecurityGroup
-#
+  VPCPrivateSecurityGroupIngress:
+    Type: AWS::EC2::SecurityGroupIngress
+    DependsOn: VPCPrivateSecurityGroup
+    Properties:
+      GroupId: !Ref VPCPrivateSecurityGroup
+      IpProtocol: -1
+      SourceSecurityGroupId: !Ref VPCPrivateSecurityGroup
+
 #  VPCPrivateSecurityGroupIngress:
 #    Type: AWS::EC2::SecurityGroupIngress
 #    DependsOn: VPCPrivateSecurityGroup
