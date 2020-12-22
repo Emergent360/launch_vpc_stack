@@ -126,7 +126,6 @@ Mappings:
     ap-northeast-1:
       AMI: ami-08847abae18baa040    # Tokyo
 
-
 Resources:
 
   # First, a VPC:
@@ -156,7 +155,8 @@ Resources:
     Type: AWS::EC2::Subnet
     Properties:
       VpcId: !Ref VPC
-      CidrBlock: 10.1.10.0/24
+      #CidrBlock: 10.1.10.0/24
+      CidrBlock: !Select [ 0, !Cidr [ !GetAtt VPC.CidrBlock, 6, 8 ]]
       MapPublicIpOnLaunch: true
       AvailabilityZone: !Select [ 0, !GetAZs ]    # Get the first AZ in the list        
       Tags:
@@ -167,7 +167,8 @@ Resources:
     Condition: BuildPublicB
     Properties:
       VpcId: !Ref VPC
-      CidrBlock: 10.1.20.0/24
+      #CidrBlock: 10.1.20.0/24
+      CidrBlock: !Select [ 1, !Cidr [ !GetAtt VPC.CidrBlock, 6, 8 ]]
       MapPublicIpOnLaunch: true
       AvailabilityZone: !Select [ 1, !GetAZs ]    # Get the second AZ in the list  
       Tags:
@@ -178,7 +179,8 @@ Resources:
     Condition: BuildPublicC
     Properties:
       VpcId: !Ref VPC
-      CidrBlock: 10.1.30.0/24
+      #CidrBlock: 10.1.30.0/24
+      CidrBlock: !Select [ 2, !Cidr [ !GetAtt VPC.CidrBlock, 6, 8 ]]
       MapPublicIpOnLaunch: true
       AvailabilityZone: !Select [ 2, !GetAZs ]    # Get the third AZ in the list  
       Tags:
@@ -189,7 +191,8 @@ Resources:
     Condition: BuildPrivateA
     Properties:
       VpcId: !Ref VPC
-      CidrBlock: 10.1.50.0/24
+      #CidrBlock: 10.1.50.0/24
+      CidrBlock: !Select [ 3, !Cidr [ !GetAtt VPC.CidrBlock, 6, 8 ]]
       AvailabilityZone: !Select [ 0, !GetAZs ]    # Get the first AZ in the list  
       Tags:
       - Key: Name
@@ -199,7 +202,8 @@ Resources:
     Condition: BuildPrivateB
     Properties:
       VpcId: !Ref VPC
-      CidrBlock: 10.1.60.0/24
+      #CidrBlock: 10.1.60.0/24
+      CidrBlock: !Select [ 4, !Cidr [ !GetAtt VPC.CidrBlock, 6, 8 ]]
       AvailabilityZone: !Select [ 1, !GetAZs ]    # Get the second AZ in the list  
       Tags:
       - Key: Name
@@ -209,7 +213,8 @@ Resources:
     Condition: BuildPrivateC
     Properties:
       VpcId: !Ref VPC
-      CidrBlock: 10.1.70.0/24
+      #CidrBlock: 10.1.70.0/24
+      CidrBlock: !Select [ 5, !Cidr [ !GetAtt VPC.CidrBlock, 6, 8 ]]
       AvailabilityZone: !Select [ 2, !GetAZs ]    # Get the third AZ in the list  
       Tags:
       - Key: Name
