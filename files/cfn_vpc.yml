@@ -68,27 +68,21 @@ Parameters:
 
   PublicACidrBlock:
     Type: String
-    Default: "10.1.10.0/24"
 
   PublicBCidrBlock:
     Type: String
-    Default: "10.1.20.0/24"
 
   PublicCCidrBlock:
     Type: String
-    Default: "10.1.30.0/24"
 
   PrivateACidrBlock:
     Type: String
-    Default: "10.1.50.0/24"
 
   PrivateBCidrBlock:
     Type: String
-    Default: "10.1.60.0/24"
 
   PrivateCCidrBlock:
     Type: String
-    Default: "10.1.70.0/24"
 
 Conditions:
   BuildPublicB:         !Not [ !Equals [ !Ref NumberOfAZs, 1 ]]  
@@ -167,7 +161,6 @@ Resources:
     Condition: BuildPublicB
     Properties:
       VpcId: !Ref VPC
-      #CidrBlock: 10.1.20.0/24
       CidrBlock: !Select [ 1, !Cidr [ !GetAtt VPC.CidrBlock, 6, 8 ]]
       MapPublicIpOnLaunch: true
       AvailabilityZone: !Select [ 1, !GetAZs ]    # Get the second AZ in the list  
@@ -179,7 +172,6 @@ Resources:
     Condition: BuildPublicC
     Properties:
       VpcId: !Ref VPC
-      #CidrBlock: 10.1.30.0/24
       CidrBlock: !Select [ 2, !Cidr [ !GetAtt VPC.CidrBlock, 6, 8 ]]
       MapPublicIpOnLaunch: true
       AvailabilityZone: !Select [ 2, !GetAZs ]    # Get the third AZ in the list  
@@ -191,7 +183,6 @@ Resources:
     Condition: BuildPrivateA
     Properties:
       VpcId: !Ref VPC
-      #CidrBlock: 10.1.50.0/24
       CidrBlock: !Select [ 3, !Cidr [ !GetAtt VPC.CidrBlock, 6, 8 ]]
       AvailabilityZone: !Select [ 0, !GetAZs ]    # Get the first AZ in the list  
       Tags:
@@ -202,7 +193,6 @@ Resources:
     Condition: BuildPrivateB
     Properties:
       VpcId: !Ref VPC
-      #CidrBlock: 10.1.60.0/24
       CidrBlock: !Select [ 4, !Cidr [ !GetAtt VPC.CidrBlock, 6, 8 ]]
       AvailabilityZone: !Select [ 1, !GetAZs ]    # Get the second AZ in the list  
       Tags:
@@ -213,7 +203,6 @@ Resources:
     Condition: BuildPrivateC
     Properties:
       VpcId: !Ref VPC
-      #CidrBlock: 10.1.70.0/24
       CidrBlock: !Select [ 5, !Cidr [ !GetAtt VPC.CidrBlock, 6, 8 ]]
       AvailabilityZone: !Select [ 2, !GetAZs ]    # Get the third AZ in the list  
       Tags:
@@ -440,7 +429,7 @@ Resources:
   RouteToPublicSubnetA:
     Type: AWS::EC2::Route
     Properties:
-      DestinationCidrBlock: !Ref PublicACidrBlock
+      DestinationCidrBlock: !Select [ 0, !Cidr [ !GetAtt VPC.CidrBlock, 6, 8 ]]
       RouteTableId: !Ref DefaultRTB
       VpcPeeringConnectionId: !Ref VPCPeeringConnection
 
@@ -448,7 +437,7 @@ Resources:
     Type: AWS::EC2::Route
     Condition: BuildPublicB
     Properties:
-      DestinationCidrBlock: !Ref PublicBCidrBlock
+      DestinationCidrBlock: !Select [ 1, !Cidr [ !GetAtt VPC.CidrBlock, 6, 8 ]]
       RouteTableId: !Ref DefaultRTB
       VpcPeeringConnectionId: !Ref VPCPeeringConnection
 
@@ -456,7 +445,7 @@ Resources:
     Type: AWS::EC2::Route
     Condition: BuildPublicC
     Properties:
-      DestinationCidrBlock: !Ref PublicCCidrBlock
+      DestinationCidrBlock: !Select [ 2, !Cidr [ !GetAtt VPC.CidrBlock, 6, 8 ]]
       RouteTableId: !Ref DefaultRTB
       VpcPeeringConnectionId: !Ref VPCPeeringConnection
 
@@ -464,7 +453,7 @@ Resources:
     Type: AWS::EC2::Route
     Condition: BuildPrivateA
     Properties:
-      DestinationCidrBlock: !Ref PrivateACidrBlock
+      DestinationCidrBlock: !Select [ 3, !Cidr [ !GetAtt VPC.CidrBlock, 6, 8 ]]
       RouteTableId: !Ref DefaultRTB
       VpcPeeringConnectionId: !Ref VPCPeeringConnection
 
@@ -472,7 +461,7 @@ Resources:
     Type: AWS::EC2::Route
     Condition: BuildPrivateB
     Properties:
-      DestinationCidrBlock: !Ref PrivateBCidrBlock
+      DestinationCidrBlock: !Select [ 4, !Cidr [ !GetAtt VPC.CidrBlock, 6, 8 ]]
       RouteTableId: !Ref DefaultRTB
       VpcPeeringConnectionId: !Ref VPCPeeringConnection
 
@@ -480,7 +469,7 @@ Resources:
     Type: AWS::EC2::Route
     Condition: BuildPrivateC
     Properties:
-      DestinationCidrBlock: !Ref PrivateCCidrBlock
+      DestinationCidrBlock: !Select [ 5, !Cidr [ !GetAtt VPC.CidrBlock, 6, 8 ]]
       RouteTableId: !Ref DefaultRTB
       VpcPeeringConnectionId: !Ref VPCPeeringConnection
 
