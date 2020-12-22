@@ -9,6 +9,7 @@
     disable_rollback: true
     template_body: "{{ vpc_template }}"
     template_parameters:
+      VpcCidrBlock: "{{ vpc_cidr_block.ec2_name_prefix }}"
       NumberOfAZs: "{{ num_of_azs }}"
       PrivateSubnets: "{{ private_subnets }}"
       BuildNAT: "{{ build_nat_gateway }}"
